@@ -1,0 +1,19 @@
+version: '3'
+services:
+  notification:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    container_name: notification
+    stdin_open: true
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - GATEWAY_BASE_URL=http://gateway:3000
+      - LOG_LEVEL=DEBUG
+    entrypoint: /app/entrypoint.sh
