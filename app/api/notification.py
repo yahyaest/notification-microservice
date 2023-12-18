@@ -18,7 +18,7 @@ class Notification(BaseModel):
 
 
 @router.get("/notifications", tags=["notification"])
-async def get_notification(request: Request):
+async def get_notifications(request: Request):
     try:
         user = request.user
         params = request.query_params
@@ -86,7 +86,6 @@ async def update_notification(notification_id:int, body: dict, request: Request)
     try:
         user = request.user
         notification = await prisma.notification.find_unique(where={'id': notification_id })
-        logger.error(type(notification))
 
         if not notification:
             raise HTTPException(status_code=404, detail="Notification not found")
@@ -97,6 +96,27 @@ async def update_notification(notification_id:int, body: dict, request: Request)
         notification = await prisma.notification.update(
             where= { 'id': notification_id },
             data= dict(body)
+        )
+
+        return notification
+    except Exception as e:
+        logger.error(e)
+        raise HTTPException(status_code=404, detail=e.detail)
+
+@router.delete("/notifications/{notification_id}", tags=["notification"])
+async def delete_notification(notification_id:int, request: Request):
+    try:
+        user = request.user
+        notification = await prisma.notification.find_unique(where={'id': notification_id })
+
+        if not notification:
+            raise HTTPException(status_code=404, detail="Notification not found")
+
+        if user.get('email') != notification.userEmail and user.get('role') != 'ADMIN':
+            raise HTTPException(status_code=403, detail="Notification belong to another user")
+
+        notification = await prisma.notification.delete(
+            where= { 'id': notification_id }
         )
 
         return notification
