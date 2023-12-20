@@ -14,6 +14,7 @@ class Notification(BaseModel):
     userImage: Optional[str] = None
     title: str
     message: str
+    sender : Optional[str] = None
     seen: Optional[bool] = False
 
 @router.patch("/bulk_notifications", tags=["notification"])

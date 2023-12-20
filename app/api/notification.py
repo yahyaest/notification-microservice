@@ -14,6 +14,7 @@ class Notification(BaseModel):
     userImage: Optional[str] = None
     title: str
     message: str
+    sender : Optional[str] = None
     seen: Optional[bool] = False
 
 
@@ -73,6 +74,7 @@ async def add_notification(body: Notification):
                 "userId": body.userId,
                 "title": body.title,
                 "message": body.message,
+                "sender": body.sender,
                 "seen": body.seen,
             }
         )
