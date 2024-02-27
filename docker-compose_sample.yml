@@ -14,6 +14,8 @@ services:
     env_file:
       - .env
     environment:
-      - GATEWAY_BASE_URL=http://gateway:3000
-      - LOG_LEVEL=DEBUG
+    - GATEWAY_BASE_URL=$YOUR_GATEWAY_SERVICE_BASE_URL
+    - JWT_SECRET=$YOUR_GATEWAY_SERVICE_JWT_SECRET
+    - DATABASE_URL=$YOUR_DATABASE_URL
+    - LOG_LEVEL=DEBUG
     entrypoint: /app/entrypoint.sh
