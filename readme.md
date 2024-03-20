@@ -50,6 +50,8 @@ Contributors names and contact info
 ex. @Yahya Machat
 
 ## Version History
+#### 0.3
+- Add externalArgs field to Notification model
 #### 0.2
 - Various bug fixes and optimizations
 #### 0.1
