@@ -16,6 +16,7 @@ class Notification(BaseModel):
     message: str
     sender : Optional[str] = None
     seen: Optional[bool] = False
+    externalArgs : Optional[str] = None
 
 
 @router.get("/notifications", tags=["notification"])
@@ -76,6 +77,7 @@ async def add_notification(body: Notification):
                 "message": body.message,
                 "sender": body.sender,
                 "seen": body.seen,
+                "externalArgs": body.externalArgs,
             }
         )
         return notification

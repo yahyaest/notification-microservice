@@ -16,6 +16,7 @@ class Notification(BaseModel):
     message: str
     sender : Optional[str] = None
     seen: Optional[bool] = False
+    externalArgs : Optional[str] = None
 
 @router.patch("/bulk_notifications", tags=["notification"])
 async def update_bulk_notification(body: dict, request: Request):
