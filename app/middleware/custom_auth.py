@@ -9,11 +9,11 @@ logger = logging.getLogger(__name__)
 # Middleware to intercept and validate JWT token
 async def auth_middleware(request: Request, call_next):
     try:
-        GATEWAY_BASE_URL = os.getenv("GATEWAY_BASE_URL",None)
+        BASE_URL = os.getenv("BASE_URL",None)
         JWT_SECRET = os.getenv("JWT_SECRET",None)
 
-        if not GATEWAY_BASE_URL:
-            raise HTTPException(status_code=401, detail="GATEWAY_BASE_URL was not provided")
+        if not BASE_URL:
+            raise HTTPException(status_code=401, detail="BASE_URL was not provided")
         if not JWT_SECRET:
             raise HTTPException(status_code=401, detail="JWT_SECRET was not provided")
                         
@@ -28,7 +28,7 @@ async def auth_middleware(request: Request, call_next):
             raise HTTPException(status_code=401, detail="Email not found in token")
         
         response = requests.post(
-            url=f"{GATEWAY_BASE_URL}/api/users/is_user", 
+            url=f"{BASE_URL}/api/users/is_user",
             data={ "email": user_mail }, 
             headers= {"Authorization": f"Bearer {token}"}
             )

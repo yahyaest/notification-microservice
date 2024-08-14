@@ -34,7 +34,7 @@ notification:
   depends_on:
     - postgres
   environment:
-    - GATEWAY_BASE_URL=$YOUR_GATEWAY_SERVICE_BASE_URL
+    - BASE_URL=$YOUR_APP_BASE_URL
     - JWT_SECRET=$YOUR_GATEWAY_SERVICE_JWT_SECRET
     - DATABASE_URL=$YOUR_DATABASE_URL
   entrypoint: /app/entrypoint.sh

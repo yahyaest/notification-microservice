@@ -9,11 +9,11 @@ from starlette.authentication import (AuthenticationBackend, AuthenticationError
 logger = logging.getLogger(__name__)
 class BearerAuthBackend(AuthenticationBackend):
     async def authenticate(self, conn):
-        GATEWAY_BASE_URL = os.getenv("GATEWAY_BASE_URL",None)
+        BASE_URL = os.getenv("BASE_URL",None)
         JWT_SECRET = os.getenv("JWT_SECRET",None)
 
-        if not GATEWAY_BASE_URL:
-            raise HTTPException(status_code=401, detail="GATEWAY_BASE_URL was not provided")
+        if not BASE_URL:
+            raise HTTPException(status_code=401, detail="BASE_URL was not provided")
         if not JWT_SECRET:
             raise HTTPException(status_code=401, detail="JWT_SECRET was not provided")
         
@@ -36,7 +36,7 @@ class BearerAuthBackend(AuthenticationBackend):
         userId: str = decoded.get("sub")
         # Get user from gateway
         response = requests.get(
-            url=f"{GATEWAY_BASE_URL}/api/users/{userId}",  
+            url=f"{BASE_URL}/api/users/{userId}",
             headers= {"Authorization": f"Bearer {token}"}
             )
         if response.status_code != 200:

@@ -2,7 +2,7 @@
 
 # Create or update .env file with provided environment variables
 
-# echo "GATEWAY_BASE_URL=${GATEWAY_BASE_URL}" > /app/.env
+# echo "BASE_URL=${BASE_URL}" > /app/.env
 # echo "LOG_LEVEL=${LOG_LEVEL}" >> /app/.env
 # echo "DATABASE_URL=${DATABASE_URL}" >> /app/.env
 # echo "JWT_SECRET=${JWT_SECRET}" >> /app/.env
